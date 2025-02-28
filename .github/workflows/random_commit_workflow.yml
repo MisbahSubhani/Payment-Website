@@ -1,29 +1,22 @@
-name: Daily Random Commits
-
-on:
-  schedule:
-    - cron: '0 12 * * *'  # Runs daily at 12:00 UTC
-  workflow_dispatch:  # Allows manual trigger
-
 jobs:
-  random-commits:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/checkout@v2
         with:
-          python-version: '3.x'
+          fetch-depth: 0  # Fetch the entire history so we can push
 
-      - name: Install dependencies
-        run: pip install --upgrade pip
-
-      - name: Run commit script
-        run: python ap.py
+      - name: Set up Git
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "your-email@example.com"
 
       - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the GitHub token stored in secrets
         run: |
-          git push
+          git add .
+          git commit -m "Your commit message"
+          git push https://github.com/MisbahSubhani/Payment-Website.git
