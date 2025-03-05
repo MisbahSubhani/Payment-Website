@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2  # Use version 2 instead of v4 if v4 causes issues
 
       - name: Set up Git config
         run: |
