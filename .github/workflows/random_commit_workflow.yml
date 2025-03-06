@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # Use version 2 instead of v4 if v4 causes issues
+        uses: actions/checkout@v4  # Fetches the repository (use v4 if allowed, or fork it)
 
       - name: Set up Git config
         run: |
@@ -22,4 +22,6 @@ jobs:
           echo "Last updated: $(date)" > last_updated.txt
           git add last_updated.txt
           git commit -m "Daily update: $(date)" || echo "No changes to commit"
-          git push
+
+      - name: Show Git Status (For Debugging)
+        run: git status
